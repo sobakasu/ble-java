@@ -43,7 +43,8 @@ public class BleAdvertisement implements LEAdvertisement1, Properties {
 	public BleAdvertisement(String type, String path) {
 		this.type = type;
 		this.path = path;
-		this.servicesUUIDs = new ArrayList<String>();
+		this.servicesUUIDs = new ArrayList<>();
+		this.solicitUUIDs = new ArrayList<>();
 	}
 	
 	public void addService(BleService service) {
@@ -93,11 +94,12 @@ public class BleAdvertisement implements LEAdvertisement1, Properties {
 		
 		Variant<String> Type = new Variant<String>(this.type);
 		advertisementMap.put(ADVERTISEMENT_TYPE_PROPERTY_KEY, Type);
-		
-		Variant<String[]> serviceUUIDs = new Variant<String[]>(Utils.getStringArrayFromList(this.servicesUUIDs));
-		advertisementMap.put(ADVERTISEMENT_SERVICES_UUIDS_PROPERTY_KEY, serviceUUIDs);
-		
-		if(solicitUUIDs != null) {
+
+		if(!servicesUUIDs.isEmpty()) {
+			Variant<String[]> serviceUUIDs = new Variant<String[]>(Utils.getStringArrayFromList(this.servicesUUIDs));
+			advertisementMap.put(ADVERTISEMENT_SERVICES_UUIDS_PROPERTY_KEY, serviceUUIDs);
+		}
+		if(!solicitUUIDs.isEmpty()) {
 			Variant<String[]> solicitUUIDs = new Variant<String[]>(Utils.getStringArrayFromList(this.solicitUUIDs));
 			advertisementMap.put(ADVERTISEMENT_SOLICIT_UUIDS_PROPERTY_KEY, solicitUUIDs);
 		}
