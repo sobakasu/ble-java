@@ -28,7 +28,7 @@ public class BleAdvertisement implements LEAdvertisement1, Properties {
 	private static final String ADVERTISEMENT_INCLUDE_TX_POWER_PROPERTY_KEY = "IncludeTxPower";
 
 	private String type;
-	private List<String> servicesUUIDs;
+	List<String> servicesUUIDs;
 	private Map<Integer, Integer> manufacturerData;
 	private List<String> solicitUUIDs;
 	private Map<String, Integer> serviceData;
