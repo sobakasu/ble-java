@@ -26,13 +26,13 @@ public class BleAdvertisement implements LEAdvertisement1, Properties {
 	private static final String ADVERTISEMENT_MANUFACTURER_DATA_PROPERTY_KEY = "ManufacturerData";
 	private static final String ADVERTISEMENT_SERVICE_DATA_PROPERTY_KEY = "ServiceData";
 	private static final String ADVERTISEMENT_INCLUDE_TX_POWER_PROPERTY_KEY = "IncludeTxPower";
-	
+
 	private String type;
-	public List<String> servicesUUIDs;
-	public Map<Integer, Integer> manufacturerData;
-	public List<String> solicitUUIDs;
-	public Map<String, Integer> serviceData;
-	public boolean includeTxPower = true;
+	private List<String> servicesUUIDs;
+	private Map<Integer, Integer> manufacturerData;
+	private List<String> solicitUUIDs;
+	private Map<String, Integer> serviceData;
+	private boolean includeTxPower = true;
 	private String path;
 	
 	/**
@@ -49,7 +49,27 @@ public class BleAdvertisement implements LEAdvertisement1, Properties {
 	public void addService(BleService service) {
 		this.servicesUUIDs.add(service.getUuid());
 	}
-	
+
+	public void addSolicited(BleService service) {
+		this.solicitUUIDs.add(service.getUuid());
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public void setManufacturerData(Map<Integer, Integer> manufacturerData) {
+		this.manufacturerData = manufacturerData;
+	}
+
+	public void setServiceData(Map<String, Integer> serviceData) {
+		this.serviceData = serviceData;
+	}
+
+	public void setIncludeTxPower(boolean includeTxPower) {
+		this.includeTxPower = includeTxPower;
+	}
+
 	protected void export(DBusConnection dbusConnection) throws DBusException {
 		dbusConnection.exportObject(this.getPath().toString(), this);
 	}
